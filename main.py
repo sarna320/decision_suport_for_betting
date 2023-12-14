@@ -21,6 +21,43 @@ def find_links():
     return links
 
 
+def find_next_event_numer():
+    events_nr = browser.find_elements(
+        By.CSS_SELECTOR, "div.event__round.event__round--static"
+    )
+    next_event_nr = events_nr[1].text
+    return next_event_nr
+
+def find_home_participant():
+    table_event = browser.find_elements(
+    By.CSS_SELECTOR, "div.leagues--static.event--leagues.summary-fixtures"
+    )
+    next_table_event = table_event[0]
+    # print(table_event)
+    # print(next_table_event)
+    home_participant = []
+    home_participant_css = next_table_event.find_elements(
+        By.CSS_SELECTOR, "div.event__participant.event__participant--home"
+    )
+    for item in home_participant_css:
+        home_participant.append(item.text)
+    return home_participant
+
+def find_away_participant():
+    table_event = browser.find_elements(
+    By.CSS_SELECTOR, "div.leagues--static.event--leagues.summary-fixtures"
+    )
+    next_table_event = table_event[0]
+    # print(table_event)
+    # print(next_table_event)
+    away_participant = []
+    away_participant_css = next_table_event.find_elements(
+        By.CSS_SELECTOR, "div.event__participant.event__participant--away"
+    )
+    for item in away_participant_css:
+        away_participant.append(item.text)
+    return away_participant
+
 # To not show mozzila
 os.environ["MOZ_HEADLESS"] = "1"
 
@@ -34,10 +71,14 @@ links = find_links()
 # print(links)
 
 browser.get(links[0])  # showing first league
-events_nr = browser.find_elements(
-    By.CSS_SELECTOR, "div.event__round.event__round--static"
-)
-next_event_nr = events_nr[1].text
-print(next_event_nr)
+
+next_event_nr=find_next_event_numer()
+#print(next_event_nr)
+
+home_participant=find_home_participant()
+#print(home_participant)
+
+away_participant=find_away_participant()
+#print(away_participant)
 
 browser.close()
