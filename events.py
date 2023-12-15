@@ -1,7 +1,7 @@
-# from bs4 import BeautifulSoup
 import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+
 
 os.environ["MOZ_HEADLESS"] = "1"
 browser = webdriver.Firefox()
